@@ -1,0 +1,27 @@
+1) Fix phone number validation issue
+2) Log queries executed by EF
+3) Implement one way hash registration(d)
+4) Create unique index on UserName column(d)
+5) Convert username to lowercase while registering user
+6) Implement password encryption
+7) convert password to lowercase while registering user
+8) Add more validation in payment process flow
+9) make transaction status update, reciept and raw reciept creation atomic(we will do it later)
+10) HandleDatabaseEntityValidation exception in database layer(d);
+11) Add exception logging( log4rnet or enterprise lib)
+12) Add controller methods for registration, login, payment notification processing and initiate checkout
+13) Get user's transactions
+14) Enhance the code to track the order
+15) Change Transaction table logic to auto generate the transaction and process it(d)
+16) Create BaseController and add exception logging inside(d)
+17) Create private repository in GitHub
+18) Add Onstore code
+19) Handle transaction and address mapping
+20) Add Transaction history table
+
+
+
+
+
+
+
