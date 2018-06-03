@@ -1,0 +1,1431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IconName" Type="nvarchar" MaxLength="64" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ImageHeight" Type="int" Nullable="false" />
+          <Property Name="ImageWidth" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemCategoryMap">
+          <Key>
+            <PropertyRef Name="ItemCategoryId" />
+          </Key>
+          <Property Name="ItemCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemImageMap">
+          <Key>
+            <PropertyRef Name="ItemImageMapId" />
+          </Key>
+          <Property Name="ItemImageMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemPriceMap">
+          <Key>
+            <PropertyRef Name="ItemPriceMapId" />
+          </Key>
+          <Property Name="ItemPriceMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="MetricUnit" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IconName" Type="nvarchar" MaxLength="128" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemsAvailability">
+          <Key>
+            <PropertyRef Name="ItemAvailabilityID" />
+          </Key>
+          <Property Name="ItemAvailabilityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemStoreMapId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemStoreMap">
+          <Key>
+            <PropertyRef Name="ItemStoreMapId" />
+          </Key>
+          <Property Name="ItemStoreMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemStorePriceDiscount">
+          <Key>
+            <PropertyRef Name="ItemStorePriceDiscountId" />
+          </Key>
+          <Property Name="ItemStorePriceDiscountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemStoreMapId" Type="int" Nullable="false" />
+          <Property Name="PriceDiscountId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemVendorPrice">
+          <Key>
+            <PropertyRef Name="ItemVendorPriceId" />
+          </Key>
+          <Property Name="ItemVendorPriceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="VendorId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemVideoMap">
+          <Key>
+            <PropertyRef Name="ItemVideoMapId" />
+          </Key>
+          <Property Name="ItemVideoMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MetricUnits">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="PriceDiscount">
+          <Key>
+            <PropertyRef Name="PriceDiscountId" />
+          </Key>
+          <Property Name="PriceDiscountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Percentage" Type="int" Nullable="false" />
+          <Property Name="IsPremiumUser" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PurchaseItemDeliveryAddressMap">
+          <Key>
+            <PropertyRef Name="PurchaseItemDeliveryAddressMapId" />
+          </Key>
+          <Property Name="PurchaseItemDeliveryAddressMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionId" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PurchaseRawReceipts">
+          <Key>
+            <PropertyRef Name="PurchaseReceiptDataId" />
+          </Key>
+          <Property Name="PurchaseReceiptDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RawReceipt" Type="varchar" MaxLength="1024" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="PurchaseReceiptId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseReceipts">
+          <Key>
+            <PropertyRef Name="PurchaseReceiptId" />
+          </Key>
+          <Property Name="PurchaseReceiptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VendorTransactionId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TransactionType" Type="tinyint" Nullable="false" />
+          <Property Name="TransactionProvider" Type="tinyint" Nullable="false" />
+          <Property Name="TransactionStatus" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemData" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ItemDataFormat" Type="tinyint" Nullable="false" />
+          <Property Name="TransactionType" Type="tinyint" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="TransactionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="UserAddressId" />
+          </Key>
+          <Property Name="UserAddressId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AddressType" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsDeliveryAddress" Type="bit" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginId" />
+          </Key>
+          <Property Name="UserLoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoggedInFrom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpiresAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsMember" Type="bit" Nullable="false" />
+          <Property Name="PrimaryContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="SecondaryContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="PrimaryEmail" Type="varchar" MaxLength="100" />
+          <Property Name="SecondaryEmail" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="int" Nullable="false" />
+          <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VideoName" Type="int" Nullable="false" />
+          <Property Name="Description" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__ItemCateg__Categ__52593CB8">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="ItemCategoryMap" Type="Self.ItemCategoryMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="ItemCategoryMap">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemCateg__ItemI__5165187F">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemCategoryMap" Type="Self.ItemCategoryMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemCategoryMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemImage__Image__6383C8BA">
+          <End Role="Images" Type="Self.Images" Multiplicity="1" />
+          <End Role="ItemImageMap" Type="Self.ItemImageMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Images">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="ItemImageMap">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemImage__ItemI__6477ECF3">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemImageMap" Type="Self.ItemImageMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemImageMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemPrice__ItemI__0D7A0286">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemPriceMap" Type="Self.ItemPriceMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemPriceMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemsAvai__ItemS__5812160E">
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="1" />
+          <End Role="ItemsAvailability" Type="Self.ItemsAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStoreMap">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Principal>
+            <Dependent Role="ItemsAvailability">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__ItemI__19DFD96B">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemStoreMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__ItemS__1332DBDC">
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="1" />
+          <End Role="ItemStorePriceDiscount" Type="Self.ItemStorePriceDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStoreMap">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Principal>
+            <Dependent Role="ItemStorePriceDiscount">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__Price__18EBB532">
+          <End Role="PriceDiscount" Type="Self.PriceDiscount" Multiplicity="1" />
+          <End Role="ItemStorePriceDiscount" Type="Self.ItemStorePriceDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceDiscount">
+              <PropertyRef Name="PriceDiscountId" />
+            </Principal>
+            <Dependent Role="ItemStorePriceDiscount">
+              <PropertyRef Name="PriceDiscountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__Store__5535A963">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="ItemStoreMap">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVendo__ItemI__7A672E12">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemVendorPrice" Type="Self.ItemVendorPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemVendorPrice">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVendo__Vendo__7B5B524B">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
+          <End Role="ItemVendorPrice" Type="Self.ItemVendorPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="ItemVendorPrice">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVideo__ItemI__76969D2E">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemVideoMap" Type="Self.ItemVideoMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemVideoMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVideo__Video__75A278F5">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1" />
+          <End Role="ItemVideoMap" Type="Self.ItemVideoMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="ItemVideoMap">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseRawReceipt_ReceiptId">
+          <End Role="PurchaseReceipts" Type="Self.PurchaseReceipts" Multiplicity="1" />
+          <End Role="PurchaseRawReceipts" Type="Self.PurchaseRawReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseReceipts">
+              <PropertyRef Name="PurchaseReceiptId" />
+            </Principal>
+            <Dependent Role="PurchaseRawReceipts">
+              <PropertyRef Name="PurchaseReceiptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnStoreModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemCategoryMap" EntityType="Self.ItemCategoryMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemImageMap" EntityType="Self.ItemImageMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemPriceMap" EntityType="Self.ItemPriceMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemsAvailability" EntityType="Self.ItemsAvailability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStoreMap" EntityType="Self.ItemStoreMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStorePriceDiscount" EntityType="Self.ItemStorePriceDiscount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemVendorPrice" EntityType="Self.ItemVendorPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemVideoMap" EntityType="Self.ItemVideoMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetricUnits" EntityType="Self.MetricUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceDiscount" EntityType="Self.PriceDiscount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseItemDeliveryAddressMap" EntityType="Self.PurchaseItemDeliveryAddressMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseRawReceipts" EntityType="Self.PurchaseRawReceipts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseReceipts" EntityType="Self.PurchaseReceipts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAddress" EntityType="Self.UserAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ItemCateg__Categ__52593CB8" Association="Self.FK__ItemCateg__Categ__52593CB8">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ItemCategoryMap" EntitySet="ItemCategoryMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemCateg__ItemI__5165187F" Association="Self.FK__ItemCateg__ItemI__5165187F">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemCategoryMap" EntitySet="ItemCategoryMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemImage__Image__6383C8BA" Association="Self.FK__ItemImage__Image__6383C8BA">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="ItemImageMap" EntitySet="ItemImageMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemImage__ItemI__6477ECF3" Association="Self.FK__ItemImage__ItemI__6477ECF3">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemImageMap" EntitySet="ItemImageMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemPrice__ItemI__0D7A0286" Association="Self.FK__ItemPrice__ItemI__0D7A0286">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPriceMap" EntitySet="ItemPriceMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemsAvai__ItemS__5812160E" Association="Self.FK__ItemsAvai__ItemS__5812160E">
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMap" />
+            <End Role="ItemsAvailability" EntitySet="ItemsAvailability" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__ItemI__19DFD96B" Association="Self.FK__ItemStore__ItemI__19DFD96B">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__ItemS__1332DBDC" Association="Self.FK__ItemStore__ItemS__1332DBDC">
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMap" />
+            <End Role="ItemStorePriceDiscount" EntitySet="ItemStorePriceDiscount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__Price__18EBB532" Association="Self.FK__ItemStore__Price__18EBB532">
+            <End Role="PriceDiscount" EntitySet="PriceDiscount" />
+            <End Role="ItemStorePriceDiscount" EntitySet="ItemStorePriceDiscount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__Store__5535A963" Association="Self.FK__ItemStore__Store__5535A963">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVendo__ItemI__7A672E12" Association="Self.FK__ItemVendo__ItemI__7A672E12">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemVendorPrice" EntitySet="ItemVendorPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVendo__Vendo__7B5B524B" Association="Self.FK__ItemVendo__Vendo__7B5B524B">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="ItemVendorPrice" EntitySet="ItemVendorPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVideo__ItemI__76969D2E" Association="Self.FK__ItemVideo__ItemI__76969D2E">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemVideoMap" EntitySet="ItemVideoMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVideo__Video__75A278F5" Association="Self.FK__ItemVideo__Video__75A278F5">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="ItemVideoMap" EntitySet="ItemVideoMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseRawReceipt_ReceiptId" Association="Self.FK_PurchaseRawReceipt_ReceiptId">
+            <End Role="PurchaseReceipts" EntitySet="PurchaseReceipts" />
+            <End Role="PurchaseRawReceipts" EntitySet="PurchaseRawReceipts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IconName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemCategoryMaps" Relationship="Self.FK__ItemCateg__Categ__52593CB8" FromRole="Categories" ToRole="ItemCategoryMap" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageHeight" Type="Int32" Nullable="false" />
+          <Property Name="ImageWidth" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemImageMaps" Relationship="Self.FK__ItemImage__Image__6383C8BA" FromRole="Images" ToRole="ItemImageMap" />
+        </EntityType>
+        <EntityType Name="ItemCategoryMap">
+          <Key>
+            <PropertyRef Name="ItemCategoryId" />
+          </Key>
+          <Property Name="ItemCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__ItemCateg__Categ__52593CB8" FromRole="ItemCategoryMap" ToRole="Categories" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__ItemCateg__ItemI__5165187F" FromRole="ItemCategoryMap" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ItemImageMap">
+          <Key>
+            <PropertyRef Name="ItemImageMapId" />
+          </Key>
+          <Property Name="ItemImageMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Image" Relationship="Self.FK__ItemImage__Image__6383C8BA" FromRole="ItemImageMap" ToRole="Images" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__ItemImage__ItemI__6477ECF3" FromRole="ItemImageMap" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ItemPriceMap">
+          <Key>
+            <PropertyRef Name="ItemPriceMapId" />
+          </Key>
+          <Property Name="ItemPriceMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__ItemPrice__ItemI__6FE99F9F" FromRole="ItemPriceMap" ToRole="Items" />
+          <Property Name="MetricUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IconName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemCategoryMaps" Relationship="Self.FK__ItemCateg__ItemI__5165187F" FromRole="Items" ToRole="ItemCategoryMap" />
+          <NavigationProperty Name="ItemImageMaps" Relationship="Self.FK__ItemImage__ItemI__6477ECF3" FromRole="Items" ToRole="ItemImageMap" />
+          <NavigationProperty Name="ItemPriceMaps" Relationship="Self.FK__ItemPrice__ItemI__6FE99F9F" FromRole="Items" ToRole="ItemPriceMap" />
+          <NavigationProperty Name="ItemVendorPrices" Relationship="Self.FK__ItemVendo__ItemI__7A672E12" FromRole="Items" ToRole="ItemVendorPrice" />
+          <NavigationProperty Name="ItemVideoMaps" Relationship="Self.FK__ItemVideo__ItemI__76969D2E" FromRole="Items" ToRole="ItemVideoMap" />
+          <NavigationProperty Name="ItemStoreMaps" Relationship="OnStoreModel.FK__ItemStore__ItemI__19DFD96B" FromRole="Item" ToRole="ItemStoreMap" />
+        </EntityType>
+        <EntityType Name="ItemsAvailability">
+          <Key>
+            <PropertyRef Name="ItemAvailabilityID" />
+          </Key>
+          <Property Name="ItemAvailabilityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemStoreMapId" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemStoreMap" Relationship="Self.FK__ItemsAvai__ItemS__5812160E" FromRole="ItemsAvailability" ToRole="ItemStoreMap" />
+        </EntityType>
+        <EntityType Name="ItemStoreMap">
+          <Key>
+            <PropertyRef Name="ItemStoreMapId" />
+          </Key>
+          <Property Name="ItemStoreMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemsAvailabilities" Relationship="Self.FK__ItemsAvai__ItemS__5812160E" FromRole="ItemStoreMap" ToRole="ItemsAvailability" />
+          <NavigationProperty Name="ItemStorePriceDiscounts" Relationship="Self.FK__ItemStore__ItemS__5DCAEF64" FromRole="ItemStoreMap" ToRole="ItemStorePriceDiscount" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__ItemStore__Store__5535A963" FromRole="ItemStoreMap" ToRole="Stores" />
+          <NavigationProperty Name="Item" Relationship="OnStoreModel.FK__ItemStore__ItemI__19DFD96B" FromRole="ItemStoreMap" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="ItemStorePriceDiscount">
+          <Key>
+            <PropertyRef Name="ItemStorePriceDiscountId" />
+          </Key>
+          <Property Name="ItemStorePriceDiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemStoreMapId" Type="Int32" Nullable="false" />
+          <Property Name="PriceDiscountId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemStoreMap" Relationship="Self.FK__ItemStore__ItemS__5DCAEF64" FromRole="ItemStorePriceDiscount" ToRole="ItemStoreMap" />
+          <NavigationProperty Name="PriceDiscount" Relationship="Self.FK__ItemStore__Price__5EBF139D" FromRole="ItemStorePriceDiscount" ToRole="PriceDiscount" />
+        </EntityType>
+        <EntityType Name="ItemVendorPrice">
+          <Key>
+            <PropertyRef Name="ItemVendorPriceId" />
+          </Key>
+          <Property Name="ItemVendorPriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__ItemVendo__ItemI__7A672E12" FromRole="ItemVendorPrice" ToRole="Items" />
+          <NavigationProperty Name="Vendor" Relationship="Self.FK__ItemVendo__Vendo__7B5B524B" FromRole="ItemVendorPrice" ToRole="Vendors" />
+        </EntityType>
+        <EntityType Name="ItemVideoMap">
+          <Key>
+            <PropertyRef Name="ItemVideoMapId" />
+          </Key>
+          <Property Name="ItemVideoMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__ItemVideo__ItemI__76969D2E" FromRole="ItemVideoMap" ToRole="Items" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__ItemVideo__Video__75A278F5" FromRole="ItemVideoMap" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="PriceDiscount">
+          <Key>
+            <PropertyRef Name="PriceDiscountId" />
+          </Key>
+          <Property Name="PriceDiscountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Percentage" Type="Int32" Nullable="false" />
+          <Property Name="IsPremiumUser" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemStorePriceDiscounts" Relationship="Self.FK__ItemStore__Price__5EBF139D" FromRole="PriceDiscount" ToRole="ItemStorePriceDiscount" />
+        </EntityType>
+        <EntityType Name="PurchaseItemDeliveryAddressMap">
+          <Key>
+            <PropertyRef Name="PurchaseItemDeliveryAddressMapId" />
+          </Key>
+          <Property Name="PurchaseItemDeliveryAddressMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="StoreName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ItemStoreMaps" Relationship="Self.FK__ItemStore__Store__5535A963" FromRole="Stores" ToRole="ItemStoreMap" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="TransactionType" Type="Byte" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ItemData" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ItemDataFormat" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="UserAddressId" />
+          </Key>
+          <Property Name="UserAddressId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeliveryAddress" Type="Boolean" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="AddressType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserLoginId" />
+          </Key>
+          <Property Name="UserLoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="LoggedInFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExpiresAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Token" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsMember" Type="Boolean" Nullable="false" />
+          <Property Name="PrimaryContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SecondaryEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
+          <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemVendorPrices" Relationship="Self.FK__ItemVendo__Vendo__7B5B524B" FromRole="Vendors" ToRole="ItemVendorPrice" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoName" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemVideoMaps" Relationship="Self.FK__ItemVideo__Video__75A278F5" FromRole="Videos" ToRole="ItemVideoMap" />
+        </EntityType>
+        <Association Name="FK__ItemCateg__Categ__52593CB8">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="ItemCategoryMap" Type="Self.ItemCategoryMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="ItemCategoryMap">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemImage__Image__6383C8BA">
+          <End Role="Images" Type="Self.Image" Multiplicity="1" />
+          <End Role="ItemImageMap" Type="Self.ItemImageMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Images">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="ItemImageMap">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemCateg__ItemI__5165187F">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemCategoryMap" Type="Self.ItemCategoryMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemCategoryMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemImage__ItemI__6477ECF3">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemImageMap" Type="Self.ItemImageMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemImageMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemPrice__ItemI__6FE99F9F">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemPriceMap" Type="Self.ItemPriceMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemPriceMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVendo__ItemI__7A672E12">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemVendorPrice" Type="Self.ItemVendorPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemVendorPrice">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVideo__ItemI__76969D2E">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemVideoMap" Type="Self.ItemVideoMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemVideoMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemsAvai__ItemS__5812160E">
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="1" />
+          <End Role="ItemsAvailability" Type="Self.ItemsAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStoreMap">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Principal>
+            <Dependent Role="ItemsAvailability">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__ItemS__5DCAEF64">
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="1" />
+          <End Role="ItemStorePriceDiscount" Type="Self.ItemStorePriceDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStoreMap">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Principal>
+            <Dependent Role="ItemStorePriceDiscount">
+              <PropertyRef Name="ItemStoreMapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__Store__5535A963">
+          <End Role="Stores" Type="Self.Store" Multiplicity="1" />
+          <End Role="ItemStoreMap" Type="Self.ItemStoreMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="ItemStoreMap">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemStore__Price__5EBF139D">
+          <End Role="PriceDiscount" Type="Self.PriceDiscount" Multiplicity="1" />
+          <End Role="ItemStorePriceDiscount" Type="Self.ItemStorePriceDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceDiscount">
+              <PropertyRef Name="PriceDiscountId" />
+            </Principal>
+            <Dependent Role="ItemStorePriceDiscount">
+              <PropertyRef Name="PriceDiscountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVendo__Vendo__7B5B524B">
+          <End Role="Vendors" Type="Self.Vendor" Multiplicity="1" />
+          <End Role="ItemVendorPrice" Type="Self.ItemVendorPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="ItemVendorPrice">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVideo__Video__75A278F5">
+          <End Role="Videos" Type="Self.Video" Multiplicity="1" />
+          <End Role="ItemVideoMap" Type="Self.ItemVideoMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="VideoId" />
+            </Principal>
+            <Dependent Role="ItemVideoMap">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Images" EntityType="Self.Image" />
+          <EntitySet Name="ItemCategoryMaps" EntityType="Self.ItemCategoryMap" />
+          <EntitySet Name="ItemImageMaps" EntityType="Self.ItemImageMap" />
+          <EntitySet Name="ItemPriceMaps" EntityType="Self.ItemPriceMap" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ItemsAvailabilities" EntityType="Self.ItemsAvailability" />
+          <EntitySet Name="ItemStoreMaps" EntityType="Self.ItemStoreMap" />
+          <EntitySet Name="ItemStorePriceDiscounts" EntityType="Self.ItemStorePriceDiscount" />
+          <EntitySet Name="ItemVendorPrices" EntityType="Self.ItemVendorPrice" />
+          <EntitySet Name="ItemVideoMaps" EntityType="Self.ItemVideoMap" />
+          <EntitySet Name="PriceDiscounts" EntityType="Self.PriceDiscount" />
+          <EntitySet Name="PurchaseItemDeliveryAddressMaps" EntityType="Self.PurchaseItemDeliveryAddressMap" />
+          <EntitySet Name="Stores" EntityType="Self.Store" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="UserAddresses" EntityType="Self.UserAddress" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendor" />
+          <EntitySet Name="Videos" EntityType="Self.Video" />
+          <AssociationSet Name="FK__ItemCateg__Categ__52593CB8" Association="Self.FK__ItemCateg__Categ__52593CB8">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ItemCategoryMap" EntitySet="ItemCategoryMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemImage__Image__6383C8BA" Association="Self.FK__ItemImage__Image__6383C8BA">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="ItemImageMap" EntitySet="ItemImageMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemCateg__ItemI__5165187F" Association="Self.FK__ItemCateg__ItemI__5165187F">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemCategoryMap" EntitySet="ItemCategoryMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemImage__ItemI__6477ECF3" Association="Self.FK__ItemImage__ItemI__6477ECF3">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemImageMap" EntitySet="ItemImageMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemPrice__ItemI__6FE99F9F" Association="Self.FK__ItemPrice__ItemI__6FE99F9F">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPriceMap" EntitySet="ItemPriceMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVendo__ItemI__7A672E12" Association="Self.FK__ItemVendo__ItemI__7A672E12">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemVendorPrice" EntitySet="ItemVendorPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVideo__ItemI__76969D2E" Association="Self.FK__ItemVideo__ItemI__76969D2E">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemVideoMap" EntitySet="ItemVideoMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemsAvai__ItemS__5812160E" Association="Self.FK__ItemsAvai__ItemS__5812160E">
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMaps" />
+            <End Role="ItemsAvailability" EntitySet="ItemsAvailabilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__ItemS__5DCAEF64" Association="Self.FK__ItemStore__ItemS__5DCAEF64">
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMaps" />
+            <End Role="ItemStorePriceDiscount" EntitySet="ItemStorePriceDiscounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__Store__5535A963" Association="Self.FK__ItemStore__Store__5535A963">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemStore__Price__5EBF139D" Association="Self.FK__ItemStore__Price__5EBF139D">
+            <End Role="PriceDiscount" EntitySet="PriceDiscounts" />
+            <End Role="ItemStorePriceDiscount" EntitySet="ItemStorePriceDiscounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVendo__Vendo__7B5B524B" Association="Self.FK__ItemVendo__Vendo__7B5B524B">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="ItemVendorPrice" EntitySet="ItemVendorPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVideo__Video__75A278F5" Association="Self.FK__ItemVideo__Video__75A278F5">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="ItemVideoMap" EntitySet="ItemVideoMaps" />
+          </AssociationSet>
+          <EntitySet Name="MetricUnits" EntityType="OnStoreModel.MetricUnit" />
+          <AssociationSet Name="FK__ItemStore__ItemI__19DFD96B" Association="OnStoreModel.FK__ItemStore__ItemI__19DFD96B">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ItemStoreMap" EntitySet="ItemStoreMaps" />
+          </AssociationSet>
+          <EntitySet Name="PurchaseRawReceipts" EntityType="OnStoreModel.PurchaseRawReceipt" />
+          <EntitySet Name="PurchaseReceipt" EntityType="OnStoreModel.PurchaseReceipt" />
+          <AssociationSet Name="FK_PurchaseRawReceipt_ReceiptId" Association="OnStoreModel.FK_PurchaseRawReceipt_ReceiptId">
+            <End Role="PurchaseReceipt1" EntitySet="PurchaseReceipt" />
+            <End Role="PurchaseRawReceipt" EntitySet="PurchaseRawReceipts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MetricUnit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__ItemStore__ItemI__19DFD96B">
+          <End Type="OnStoreModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="OnStoreModel.ItemStoreMap" Role="ItemStoreMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemStoreMap">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PurchaseRawReceipt">
+          <Key>
+            <PropertyRef Name="PurchaseReceiptDataId" />
+          </Key>
+          <Property Name="PurchaseReceiptDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseReceiptId" Type="Int32" Nullable="false" />
+          <Property Name="RawReceipt" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PurchaseReceipt" Relationship="OnStoreModel.FK_PurchaseRawReceipt_ReceiptId" FromRole="PurchaseRawReceipt" ToRole="PurchaseReceipt1" />
+        </EntityType>
+        <EntityType Name="PurchaseReceipt">
+          <Key>
+            <PropertyRef Name="PurchaseReceiptId" />
+          </Key>
+          <Property Name="PurchaseReceiptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="VendorTransactionId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionType" Type="Byte" Nullable="false" />
+          <Property Name="TransactionProvider" Type="Byte" Nullable="false" />
+          <Property Name="TransactionStatus" Type="Byte" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="TransactionId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="PurchaseRawReceipts" Relationship="OnStoreModel.FK_PurchaseRawReceipt_ReceiptId" FromRole="PurchaseReceipt1" ToRole="PurchaseRawReceipt" />
+        </EntityType>
+        <Association Name="FK_PurchaseRawReceipt_ReceiptId">
+          <End Type="OnStoreModel.PurchaseReceipt" Role="PurchaseReceipt1" Multiplicity="1" />
+          <End Type="OnStoreModel.PurchaseRawReceipt" Role="PurchaseRawReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseReceipt1">
+              <PropertyRef Name="PurchaseReceiptId" />
+            </Principal>
+            <Dependent Role="PurchaseRawReceipt">
+              <PropertyRef Name="PurchaseReceiptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnStoreModelStoreContainer" CdmEntityContainer="OnStoreEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="OnStoreModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IconName" ColumnName="IconName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="OnStoreModel.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageHeight" ColumnName="ImageHeight" />
+                <ScalarProperty Name="ImageWidth" ColumnName="ImageWidth" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemCategoryMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemCategoryMap">
+              <MappingFragment StoreEntitySet="ItemCategoryMap">
+                <ScalarProperty Name="ItemCategoryId" ColumnName="ItemCategoryId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemImageMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemImageMap">
+              <MappingFragment StoreEntitySet="ItemImageMap">
+                <ScalarProperty Name="ItemImageMapId" ColumnName="ItemImageMapId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPriceMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemPriceMap">
+              <MappingFragment StoreEntitySet="ItemPriceMap">
+                <ScalarProperty Name="MetricUnit" ColumnName="MetricUnit" />
+                <ScalarProperty Name="ItemPriceMapId" ColumnName="ItemPriceMapId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="OnStoreModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="IconName" ColumnName="IconName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemsAvailabilities">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemsAvailability">
+              <MappingFragment StoreEntitySet="ItemsAvailability">
+                <ScalarProperty Name="ItemAvailabilityID" ColumnName="ItemAvailabilityID" />
+                <ScalarProperty Name="ItemStoreMapId" ColumnName="ItemStoreMapId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStoreMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemStoreMap">
+              <MappingFragment StoreEntitySet="ItemStoreMap">
+                <ScalarProperty Name="ItemStoreMapId" ColumnName="ItemStoreMapId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStorePriceDiscounts">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemStorePriceDiscount">
+              <MappingFragment StoreEntitySet="ItemStorePriceDiscount">
+                <ScalarProperty Name="ItemStorePriceDiscountId" ColumnName="ItemStorePriceDiscountId" />
+                <ScalarProperty Name="ItemStoreMapId" ColumnName="ItemStoreMapId" />
+                <ScalarProperty Name="PriceDiscountId" ColumnName="PriceDiscountId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemVendorPrices">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemVendorPrice">
+              <MappingFragment StoreEntitySet="ItemVendorPrice">
+                <ScalarProperty Name="ItemVendorPriceId" ColumnName="ItemVendorPriceId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemVideoMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.ItemVideoMap">
+              <MappingFragment StoreEntitySet="ItemVideoMap">
+                <ScalarProperty Name="ItemVideoMapId" ColumnName="ItemVideoMapId" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceDiscounts">
+            <EntityTypeMapping TypeName="OnStoreModel.PriceDiscount">
+              <MappingFragment StoreEntitySet="PriceDiscount">
+                <ScalarProperty Name="PriceDiscountId" ColumnName="PriceDiscountId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="IsPremiumUser" ColumnName="IsPremiumUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseItemDeliveryAddressMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.PurchaseItemDeliveryAddressMap">
+              <MappingFragment StoreEntitySet="PurchaseItemDeliveryAddressMap">
+                <ScalarProperty Name="PurchaseItemDeliveryAddressMapId" ColumnName="PurchaseItemDeliveryAddressMapId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="OnStoreModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="OnStoreModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="ItemDataFormat" ColumnName="ItemDataFormat" />
+                <ScalarProperty Name="ItemData" ColumnName="ItemData" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAddresses">
+            <EntityTypeMapping TypeName="OnStoreModel.UserAddress">
+              <MappingFragment StoreEntitySet="UserAddress">
+                <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+                <ScalarProperty Name="UserAddressId" ColumnName="UserAddressId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsDeliveryAddress" ColumnName="IsDeliveryAddress" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="OnStoreModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserLoginId" ColumnName="UserLoginId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoggedInFrom" ColumnName="LoggedInFrom" />
+                <ScalarProperty Name="ExpiresAt" ColumnName="ExpiresAt" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OnStoreModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsMember" ColumnName="IsMember" />
+                <ScalarProperty Name="PrimaryContactNo" ColumnName="PrimaryContactNo" />
+                <ScalarProperty Name="SecondaryContactNo" ColumnName="SecondaryContactNo" />
+                <ScalarProperty Name="PrimaryEmail" ColumnName="PrimaryEmail" />
+                <ScalarProperty Name="SecondaryEmail" ColumnName="SecondaryEmail" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="OnStoreModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="OnStoreModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="VideoName" ColumnName="VideoName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetricUnits">
+            <EntityTypeMapping TypeName="OnStoreModel.MetricUnit">
+              <MappingFragment StoreEntitySet="MetricUnits">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRawReceipts">
+            <EntityTypeMapping TypeName="OnStoreModel.PurchaseRawReceipt">
+              <MappingFragment StoreEntitySet="PurchaseRawReceipts">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="RawReceipt" ColumnName="RawReceipt" />
+                <ScalarProperty Name="PurchaseReceiptId" ColumnName="PurchaseReceiptId" />
+                <ScalarProperty Name="PurchaseReceiptDataId" ColumnName="PurchaseReceiptDataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseReceipt">
+            <EntityTypeMapping TypeName="OnStoreModel.PurchaseReceipt">
+              <MappingFragment StoreEntitySet="PurchaseReceipts">
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TransactionStatus" ColumnName="TransactionStatus" />
+                <ScalarProperty Name="TransactionProvider" ColumnName="TransactionProvider" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="VendorTransactionId" ColumnName="VendorTransactionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PurchaseReceiptId" ColumnName="PurchaseReceiptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

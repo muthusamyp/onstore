@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c0a962479fd4afa9db860c6a67bfce2" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="OnStoreModel.Category" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Image" Width="1.5" PointX="3.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemCategoryMap" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemImageMap" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemPriceMap" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Item" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemsAvailability" Width="1.5" PointX="13.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemStoreMap" Width="1.5" PointX="11" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemStorePriceDiscount" Width="1.5" PointX="16.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemVendorPrice" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.ItemVideoMap" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.PriceDiscount" Width="1.5" PointX="14" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.PurchaseItemDeliveryAddressMap" Width="1.5" PointX="8.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Store" Width="1.5" PointX="8.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Transaction" Width="1.5" PointX="8.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.UserAddress" Width="1.5" PointX="10.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.UserLogin" Width="1.5" PointX="5.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.User" Width="1.5" PointX="12.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Vendor" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnStoreModel.Video" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemCateg__Categ__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemImage__Image__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemCateg__ItemI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemImage__ItemI__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemPrice__ItemI__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemVendo__ItemI__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemVideo__ItemI__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemsAvai__ItemS__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemStore__ItemS__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemStore__Store__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemStore__Price__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemVendo__Vendo__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemVideo__Video__75A278F5" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnStoreModel.MetricUnit" Width="1.5" PointX="6.375" PointY="0.75" />
+        <AssociationConnector Association="OnStoreModel.FK__ItemStore__ItemI__19DFD96B" />
+        <EntityTypeShape EntityType="OnStoreModel.PurchaseRawReceipt" Width="2.5" PointX="6.5" PointY="17" />
+        <EntityTypeShape EntityType="OnStoreModel.PurchaseReceipt" Width="2.5" PointX="9.875" PointY="15.875" />
+        <AssociationConnector Association="OnStoreModel.FK_PurchaseRawReceipt_ReceiptId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
