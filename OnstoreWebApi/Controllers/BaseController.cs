@@ -29,7 +29,7 @@ namespace OnstoreWebApi.Controllers
                 foreach (var ve in eve.ValidationErrors)
                 {
                     sb.Append(string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                        ve.PropertyName, ve.ErrorMessage);
+                        ve.PropertyName, ve.ErrorMessage));
                 }
                 string errorMessage = sb.ToString();
             }

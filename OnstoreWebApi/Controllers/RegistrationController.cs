@@ -35,7 +35,7 @@ namespace OnstoreWebApi.Controllers
                 }
 
                 JsonSerializerHelper serializer = new JsonSerializerHelper();
-                RegistrationRequest registrationRequest = (RegistrationRequest)serializer.Deserialize(strPayload, typeof(RegistrationRequest));
+                RegistrationRequest registrationRequest = (RegistrationRequest)serializer.Deserialize(strRequest, typeof(RegistrationRequest));
 
                 if (registrationRequest != null)
                 {

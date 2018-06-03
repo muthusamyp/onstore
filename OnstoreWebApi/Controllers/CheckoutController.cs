@@ -62,5 +62,49 @@ namespace OnstoreWebApi.Controllers
 
             return httpResponseMessage;
         }
+
+        [HttpPost()]
+        public HttpResponseMessage ProcessPayment()
+        {
+            HttpResponseMessage httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            string strRequest = string.Empty;
+
+            try
+            {
+                strRequest = Request.Content.ReadAsStringAsync().Result;
+                if (string.IsNullOrWhiteSpace(strRequest))
+                {
+                    httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);
+                    return httpResponseMessage;
+                }
+
+                JsonSerializerHelper serializer = new JsonSerializerHelper();
+                Payment paymentRequest = (Payment)serializer.Deserialize(strRequest, typeof(Payment));
+                if (paymentRequest != null)
+                {
+                    httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);
+                    return httpResponseMessage;
+                }
+
+                Configuration config = new Configuration();
+                PayUManager payUManager = new PayUManager(config);
+                Status status = payUManager.ProcessPayment(paymentRequest);
+                if (status != Status.Success)
+                {
+                    httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                    httpResponseMessage.Content = new StringContent(Constants.PROCESSING_ERROR);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, strRequest);
+                httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                httpResponseMessage.Content = new StringContent(Constants.PROCESSING_ERROR);
+            }
+
+            return httpResponseMessage;
+        }
     }
 }
