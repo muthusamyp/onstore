@@ -19,8 +19,9 @@ namespace OnStoreTodayConsole
     {
         static void Main(string[] args)
         {
+            //Register();
             ProcessPaymentNotification();
-            //InitiateCheckout();
+           // InitiateCheckout();
             Console.WriteLine("Press any key to continue:");
             Console.Read();
         }
@@ -34,7 +35,7 @@ namespace OnStoreTodayConsole
         public static void Register()
         {
             RegistrationRequest request = new RegistrationRequest();
-            request.UserName = "MuthuPP";
+            request.UserName = "MuthuPPP";
             request.FirstName = "Muthusamy";
             request.LastName = "P";
             request.Password = "123456";
@@ -59,7 +60,7 @@ namespace OnStoreTodayConsole
 
             Configuration config = new Configuration();
             config.PayUFailureUrl = "FailureUrl";
-            config.PayUSuccessUrl = "FailureUrl";
+            config.PayUSuccessUrl = "SuccessUrl";
             config.PayUSalt = "Salt";
             config.PayUKey = "Key";
 
@@ -67,8 +68,14 @@ namespace OnStoreTodayConsole
 
             CheckoutRequest cr = new CheckoutRequest();
             cr.User = user;
-            cr.TotalCalcPrice = 135;
+            cr.DeliveryAddress = new OrderDeliveryAddressMap();
+            cr.DeliveryAddress.City = "Bangalore";
+            cr.DeliveryAddress.ZipCode = "560068";
+            cr.DeliveryAddress.State = "Karnataka";
+            cr.DeliveryAddress.Address = "No 204 Sunnyvale apartment, 15th main road, AECS layout block A, Singasandra/Kudlu";
 
+            CheckoutItems coi = new CheckoutItems();
+            cr.CheckoutItems = coi;
             List<CheckoutItem> cil = new List<CheckoutItem>();
             CheckoutItem ci = new CheckoutItem();
             ci.SID = 1;
@@ -77,10 +84,11 @@ namespace OnStoreTodayConsole
             ci.IPID = 1;
             ci.CalcPrice = 135;
             cil.Add(ci);
-            cr.Items = cil.ToArray();
+            cr.CheckoutItems.Items = cil.ToArray();
+            cr.CheckoutItems.TotalCalcPrice = 135;
 
             CheckoutResponse response = payUManager.InitiateCheckout(cr);
-        }
+        } 
 
         public static void ProcessPaymentNotification()
         {
@@ -97,15 +105,16 @@ namespace OnStoreTodayConsole
             Payment payment = new Payment();
             payment.customerEmail = "pitchiah.muthusamy@gmail.com";
             payment.customerPhone = "9986249131";
-            payment.customerName = "MuthuP";
-            payment.amount  = 350.00M;
+            payment.customerName = "MuthuPP";
+            payment.amount  = 135.00M;
             payment.notificationId = "123456";
             payment.paymentId = "12345678";
             payment.paymentMode = "DC";
             payment.productInfo = "ProductInfo";
             payment.split_info = "split_info";
             payment.status = "Success";
-            payment.merchantTransactionId = "31944195-87df-48d6-9662-8a87d0293092";
+            payment.merchantTransactionId = "1";
+            payment.udf1 = "92A8AA97-294C-487F-8B82-4DA9836C1136";
 
             Status status = payUManager.ProcessPayment(payment);
         }

@@ -55,6 +55,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>OnStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Checkout\CheckoutItems.cs" />
     <Compile Include="Checkout\CheckoutRequest.cs" />
     <Compile Include="Checkout\CheckoutResponse.cs" />
     <Compile Include="Checkout\Payment.cs" />
@@ -68,6 +69,9 @@
     <Compile Include="Common\TransactionType.cs" />
     <Compile Include="Login\LoginRequest.cs" />
     <Compile Include="Login\LoginResponse.cs" />
+    <Compile Include="OrderDeliveryAddressMap.cs">
+      <DependentUpon>OnStore.tt</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseRawReceipt.cs">
       <DependentUpon>OnStore.tt</DependentUpon>
     </Compile>
@@ -137,9 +141,6 @@
       <DependentUpon>OnStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseItemDeliveryAddressMap.cs">
-      <DependentUpon>OnStore.tt</DependentUpon>
-    </Compile>
     <Compile Include="Checkout\CheckoutItem.cs" />
     <Compile Include="Store.cs">
       <DependentUpon>OnStore.tt</DependentUpon>

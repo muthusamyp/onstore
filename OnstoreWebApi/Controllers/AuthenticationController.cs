@@ -36,7 +36,7 @@ namespace OnstoreWebApi.Controllers
                 JsonSerializerHelper serializer = new JsonSerializerHelper();
                 LoginRequest loginRequest = (LoginRequest)serializer.Deserialize(strRequest, typeof(LoginRequest));
 
-                if (loginRequest != null)
+                if (loginRequest == null)
                 {
                     httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                     httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);

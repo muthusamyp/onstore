@@ -12,10 +12,10 @@ namespace OnStoreModels
     using System;
     using System.Collections.Generic;
     
-    public partial class PurchaseItemDeliveryAddressMap
+    public partial class OrderDeliveryAddressMap
     {
-        public int PurchaseItemDeliveryAddressMapId { get; set; }
-        public int TransactionId { get; set; }
+        public int OrderDeliveryAddressMapId { get; set; }
+        public long TransactionId { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }

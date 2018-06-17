@@ -5,12 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using OnStoreModels.Common;
 using OnStoreModels;
+using OnStoreModels.Checkout;
 using System.Data.Entity.Validation;
 
 namespace OnStoreBusinessLayer.Checkout
 {
     public class CheckoutDbManager
     {
+        public static long CreateOrderDeliveryAddressMap(long transactionId, OrderDeliveryAddressMap address)
+        {
+            long orderDeliveryAddressMapId = -1;
+
+            using (var context = new OnStoreEntities())
+            {
+                OrderDeliveryAddressMap addressMap = context.OrderDeliveryAddressMaps.Create();
+                addressMap.TransactionId = transactionId;
+                addressMap.Address = address.Address;
+                addressMap.City = address.City;
+                addressMap.Country = address.Country;
+                addressMap.State = address.State;
+                addressMap.ZipCode = address.ZipCode;
+                addressMap.CreatedDate = DateTime.UtcNow;
+                addressMap.Country = "India";
+                context.OrderDeliveryAddressMaps.Add(addressMap);
+                bool created = context.SaveChanges() > 0;
+                if (created)
+                {
+                    orderDeliveryAddressMapId = addressMap.OrderDeliveryAddressMapId;
+                }
+            }
+
+            return orderDeliveryAddressMapId;
+        }
+
         public static long CreateTransaction(User userInfo, string itemData, ItemDataFormat itemDataFormat, TransactionType transactionType, TransactionStatus transactionStatus)
         {
             long transactionId = -1;
@@ -27,28 +54,10 @@ namespace OnStoreBusinessLayer.Checkout
                 trans.TransactionType = (byte)transactionType;
                 trans.CreatedDate = DateTime.UtcNow;
                 context.Transactions.Add(trans);
-
-                try
+                bool created = context.SaveChanges() > 0;
+                if (created)
                 {
-                    bool created = context.SaveChanges() > 0;
-                    if (created)
-                    {
-                        transactionId = trans.TransactionId;
-                    }
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
+                    transactionId = trans.TransactionId;
                 }
             }
 

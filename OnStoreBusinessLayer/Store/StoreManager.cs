@@ -41,6 +41,11 @@ namespace OnStoreBusinessLayer
             List<StoreItem> availableStoreItems = new List<StoreItem>();
 
             List<ItemStoreMap> isms = GetAvailableItemStoreMaps(storeId);
+            if (isms == null)
+            {
+                return null;
+            }
+
             foreach (ItemStoreMap ism in isms)
             {
                 StoreItem si = new StoreItem();
@@ -90,8 +95,10 @@ namespace OnStoreBusinessLayer
                                                                         ispd.PriceDiscount.Percentage);
                         discountList.Add(discount);
                     }
+
                     si.DiscountList = discountList;
                 }
+
                 availableStoreItems.Add(si);
             }
 
@@ -131,6 +138,7 @@ namespace OnStoreBusinessLayer
         private static List<ItemStoreMap> FilterStoreItemsByAvailability(List<ItemStoreMap> storeItems)
         {
             List<ItemStoreMap> availableStoreItems = new List<ItemStoreMap>();
+
             foreach (ItemStoreMap storeItem in storeItems)
             {
                 foreach (ItemsAvailability ia in storeItem.ItemsAvailabilities)
@@ -190,7 +198,6 @@ namespace OnStoreBusinessLayer
         {
             Decimal discount = 0;
             storeItem.DiscountList.ForEach(dl=>{ discount += (itemPrice * dl.Percentage) / 100; });
-
             return discount;
         }
     }

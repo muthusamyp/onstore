@@ -32,14 +32,14 @@ namespace OnStoreBusinessLayer.Checkout
             string productInfo = "ProductInfo";
 
             JsonSerializerHelper jsh = new JsonSerializerHelper();
-            string serializedItems = jsh.Serialize(checkoutRequest.Items);
+            string serializedItems = jsh.Serialize(checkoutRequest.CheckoutItems);
             if (string.IsNullOrWhiteSpace(serializedItems))
             {
                 response.Status = Status.InvalidItem;
                 return response;
             }
 
-            long transactionId = CheckoutDbManager.CreateTransaction(checkoutRequest.User                                                
+            long transactionId = CheckoutDbManager.CreateTransaction(checkoutRequest.User
                                                 , serializedItems
                                                 , ItemDataFormat.JSON
                                                 , TransactionType.Purchase
@@ -52,10 +52,18 @@ namespace OnStoreBusinessLayer.Checkout
                 return response;
             }
 
+            long orderDeliveryAddressMapId = CheckoutDbManager.CreateOrderDeliveryAddressMap(transactionId, checkoutRequest.DeliveryAddress);
+
+            if (orderDeliveryAddressMapId <= -1)
+            {
+                response.Status = Status.Failure;
+                return response;
+            }
+
             string hashSequence = GeneratePaymentRequestHashSequence(checkoutRequest.User.UserId
                                                             , this.configuration.PayUKey
                                                             , transactionId
-                                                            , checkoutRequest.TotalCalcPrice
+                                                            , checkoutRequest.CheckoutItems.TotalCalcPrice
                                                             , productInfo
                                                             , checkoutRequest.User.FirstName
                                                             , checkoutRequest.User.PrimaryEmail
@@ -76,9 +84,10 @@ namespace OnStoreBusinessLayer.Checkout
             Status status = Status.Success;
 
             if (checkoutRequest == null
-                || checkoutRequest.TotalCalcPrice <= 0
-                || checkoutRequest.Items == null
-                || checkoutRequest.Items.Length <= 0)
+                || checkoutRequest.CheckoutItems == null
+                || checkoutRequest.CheckoutItems.TotalCalcPrice <= 0
+                || checkoutRequest.CheckoutItems.Items == null
+                || checkoutRequest.CheckoutItems.Items.Length <= 0)
             {
                 status = Status.InvalidInput;
                 return status;
@@ -86,17 +95,17 @@ namespace OnStoreBusinessLayer.Checkout
 
             Decimal totalCalcPrice = 0;
 
-            foreach (CheckoutItem pi in checkoutRequest.Items)
+            foreach (CheckoutItem pi in checkoutRequest.CheckoutItems.Items)
             {
                 totalCalcPrice += pi.CalcPrice;
             }
-            if (totalCalcPrice != checkoutRequest.TotalCalcPrice)
+            if (totalCalcPrice != checkoutRequest.CheckoutItems.TotalCalcPrice)
             {
                 status = Status.InvalidPrice;
                 return status;
             }
 
-            foreach (CheckoutItem pi in checkoutRequest.Items)
+            foreach (CheckoutItem pi in checkoutRequest.CheckoutItems.Items)
             {
                 Status validationStatus = StoreManager.ValidateItem(pi);
                 if (validationStatus != Status.Success)
@@ -154,25 +163,46 @@ namespace OnStoreBusinessLayer.Checkout
             {
                 return Status.InvalidTransaction;
             }
+            Guid userId = Guid.Empty;
+            if (!Guid.TryParse(payment.udf1, out userId))
+            {
+                return Status.InvalidUserID;
+            }
+            if (string.IsNullOrWhiteSpace(transaction.ItemData))
+            {
+                return Status.InvalidItem;
+            }
+
+            JsonSerializerHelper jsh = new JsonSerializerHelper();
+            CheckoutItems checkoutItems = (CheckoutItems)jsh.Deserialize(transaction.ItemData, typeof(CheckoutItems));
+            if (checkoutItems == null
+                || checkoutItems.Items == null
+                || checkoutItems.Items.Length <= 0)
+            {
+                return Status.InvalidItem;
+            }
+
+            if (payment.amount != checkoutItems.TotalCalcPrice)
+            {
+                return Status.InvalidAmount;
+            }
 
             if (payment.status == "Success")
             {
 
                 CheckoutDbManager.UpdateTransactionStatus(transactionId
-                                                           , TransactionStatus.Completed);
+                                                           , TransactionStatus.Paid);
 
                 int receiptId = CheckoutDbManager.CreateReceipt(transaction.UserId
                                                                 , transaction.TransactionId
                                                                 , payment.paymentId
                                                                 , (TransactionType)transaction.TransactionType
                                                                 , TransactionProvider.PayU
-                                                                , TransactionStatus.Completed);
+                                                                , TransactionStatus.Paid);
 
                 string rawReceipt = string.Empty;
-
                 if (receiptId > 0)
                 {
-                    JsonSerializerHelper jsh = new JsonSerializerHelper();
                     rawReceipt = jsh.Serialize(payment);
                     CheckoutDbManager.CreateRawReceipt(receiptId, rawReceipt);
                 }

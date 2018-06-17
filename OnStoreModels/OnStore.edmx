@@ -132,6 +132,20 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="OrderDeliveryAddressMap">
+          <Key>
+            <PropertyRef Name="OrderDeliveryAddressMapId" />
+          </Key>
+          <Property Name="OrderDeliveryAddressMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionId" Type="bigint" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="PriceDiscount">
           <Key>
             <PropertyRef Name="PriceDiscountId" />
@@ -143,20 +157,6 @@
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Percentage" Type="int" Nullable="false" />
           <Property Name="IsPremiumUser" Type="bit" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="PurchaseItemDeliveryAddressMap">
-          <Key>
-            <PropertyRef Name="PurchaseItemDeliveryAddressMapId" />
-          </Key>
-          <Property Name="PurchaseItemDeliveryAddressMapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TransactionId" Type="int" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ZipCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="State" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Country" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
@@ -467,8 +467,8 @@
           <EntitySet Name="ItemVendorPrice" EntityType="Self.ItemVendorPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemVideoMap" EntityType="Self.ItemVideoMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetricUnits" EntityType="Self.MetricUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDeliveryAddressMap" EntityType="Self.OrderDeliveryAddressMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceDiscount" EntityType="Self.PriceDiscount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PurchaseItemDeliveryAddressMap" EntityType="Self.PurchaseItemDeliveryAddressMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseRawReceipts" EntityType="Self.PurchaseRawReceipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseReceipts" EntityType="Self.PurchaseReceipts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
@@ -700,20 +700,6 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ItemStorePriceDiscounts" Relationship="Self.FK__ItemStore__Price__5EBF139D" FromRole="PriceDiscount" ToRole="ItemStorePriceDiscount" />
-        </EntityType>
-        <EntityType Name="PurchaseItemDeliveryAddressMap">
-          <Key>
-            <PropertyRef Name="PurchaseItemDeliveryAddressMapId" />
-          </Key>
-          <Property Name="PurchaseItemDeliveryAddressMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TransactionId" Type="Int32" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -977,7 +963,6 @@
           <EntitySet Name="ItemVendorPrices" EntityType="Self.ItemVendorPrice" />
           <EntitySet Name="ItemVideoMaps" EntityType="Self.ItemVideoMap" />
           <EntitySet Name="PriceDiscounts" EntityType="Self.PriceDiscount" />
-          <EntitySet Name="PurchaseItemDeliveryAddressMaps" EntityType="Self.PurchaseItemDeliveryAddressMap" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
           <EntitySet Name="UserAddresses" EntityType="Self.UserAddress" />
@@ -1048,6 +1033,7 @@
             <End Role="PurchaseReceipt1" EntitySet="PurchaseReceipt" />
             <End Role="PurchaseRawReceipt" EntitySet="PurchaseRawReceipts" />
           </AssociationSet>
+          <EntitySet Name="OrderDeliveryAddressMaps" EntityType="OnStoreModel.OrderDeliveryAddressMap" />
         </EntityContainer>
         <EntityType Name="MetricUnit">
           <Key>
@@ -1107,6 +1093,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrderDeliveryAddressMap">
+          <Key>
+            <PropertyRef Name="OrderDeliveryAddressMapId" />
+          </Key>
+          <Property Name="OrderDeliveryAddressMapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionId" Type="Int64" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1258,21 +1258,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseItemDeliveryAddressMaps">
-            <EntityTypeMapping TypeName="OnStoreModel.PurchaseItemDeliveryAddressMap">
-              <MappingFragment StoreEntitySet="PurchaseItemDeliveryAddressMap">
-                <ScalarProperty Name="PurchaseItemDeliveryAddressMapId" ColumnName="PurchaseItemDeliveryAddressMapId" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="OnStoreModel.Store">
               <MappingFragment StoreEntitySet="Stores">
@@ -1402,6 +1387,21 @@
                 <ScalarProperty Name="VendorTransactionId" ColumnName="VendorTransactionId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PurchaseReceiptId" ColumnName="PurchaseReceiptId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDeliveryAddressMaps">
+            <EntityTypeMapping TypeName="OnStoreModel.OrderDeliveryAddressMap">
+              <MappingFragment StoreEntitySet="OrderDeliveryAddressMap">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="OrderDeliveryAddressMapId" ColumnName="OrderDeliveryAddressMapId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

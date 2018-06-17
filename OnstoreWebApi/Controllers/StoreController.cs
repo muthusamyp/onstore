@@ -30,26 +30,27 @@ namespace OnstoreWebApi.Controllers
                 JsonSerializerHelper serializer = new JsonSerializerHelper();
 
                 GetStoreRequest getStoreRequest = (GetStoreRequest)serializer.Deserialize(strRequest, typeof(GetStoreRequest));
-                if (getStoreRequest != null)
+                if (getStoreRequest == null)
                 {
                     httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                     httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);
                     return httpResponseMessage;
                 }
 
+                GetStoreResponse response = new GetStoreResponse();
                 List<StoreItem> storeItems = StoreManager.GetAvailableStoreItems(getStoreRequest.StoreID);
-                if (storeItems == null || storeItems.Count <= 0)
-                {
-                    GetStoreResponse response = new GetStoreResponse();
-                    response.StoreItems = storeItems;
-                    string responseContent = serializer.Serialize(response);
-                    httpResponseMessage.Content = new StringContent(responseContent, Encoding.UTF8, "application/json");
-                }
-                else
+                if (storeItems == null)
                 {
                     httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                     httpResponseMessage.Content = new StringContent(Constants.PROCESSING_ERROR);
+                    return httpResponseMessage;
                 }
+
+                response.StoreItems = storeItems;
+                response.Success = true;
+                string responseContent = serializer.Serialize(response);
+                httpResponseMessage.Content = new StringContent(responseContent, Encoding.UTF8, "application/json");
+
             }
             catch (Exception ex)
             {

@@ -62,7 +62,8 @@ namespace OnStoreTest
 
             CheckoutRequest cr = new CheckoutRequest();
             cr.User = user;
-            cr.TotalCalcPrice = 135;
+            cr.CheckoutItems = new CheckoutItems();
+            cr.CheckoutItems.TotalCalcPrice = 135;
 
             List<CheckoutItem> cil = new List<CheckoutItem>();
             CheckoutItem ci = new CheckoutItem();
@@ -71,7 +72,8 @@ namespace OnStoreTest
             ci.ID = 1;
             ci.IPID = 1;
             cil.Add(ci);
-            cr.Items = cil.ToArray();
+
+            cr.CheckoutItems.Items = cil.ToArray();
 
             CheckoutResponse response = payUManager.InitiateCheckout(cr);
         }

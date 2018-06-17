@@ -9,10 +9,9 @@ namespace OnStoreModels.Checkout
     [Serializable]
     public class CheckoutRequest
     {
-        public CheckoutItem[] Items { get; set; }
-        public Decimal TotalCalcPrice { get; set; }
+        public CheckoutItems CheckoutItems { get; set; }
         public User User { get; set; }
-
+        public OrderDeliveryAddressMap DeliveryAddress { get; set; }
         public CheckoutRequest()
         {
         }

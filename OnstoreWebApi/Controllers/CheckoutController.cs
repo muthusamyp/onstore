@@ -32,7 +32,7 @@ namespace OnstoreWebApi.Controllers
 
                 JsonSerializerHelper serializer = new JsonSerializerHelper();
                 CheckoutRequest checkoutRequest = (CheckoutRequest)serializer.Deserialize(strRequest, typeof(CheckoutRequest));
-                if (checkoutRequest != null)
+                if (checkoutRequest == null)
                 {
                     httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                     httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);
@@ -40,6 +40,11 @@ namespace OnstoreWebApi.Controllers
                 }
 
                 Configuration config = new Configuration();
+                config.PayUFailureUrl = "FailureUrl";
+                config.PayUSuccessUrl = "SuccessUrl";
+                config.PayUSalt = "Salt";
+                config.PayUKey = "Key";
+
                 PayUManager payUManager = new PayUManager(config);
                 CheckoutResponse response = payUManager.InitiateCheckout(checkoutRequest);
                 if (response != null && response.Status == Status.Success)
@@ -81,7 +86,7 @@ namespace OnstoreWebApi.Controllers
 
                 JsonSerializerHelper serializer = new JsonSerializerHelper();
                 Payment paymentRequest = (Payment)serializer.Deserialize(strRequest, typeof(Payment));
-                if (paymentRequest != null)
+                if (paymentRequest == null)
                 {
                     httpResponseMessage.StatusCode = System.Net.HttpStatusCode.InternalServerError;
                     httpResponseMessage.Content = new StringContent(Constants.INVALID_REQUEST);

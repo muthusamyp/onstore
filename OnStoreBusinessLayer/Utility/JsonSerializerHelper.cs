@@ -50,6 +50,7 @@ namespace OnStoreBusinessLayer
                 MemoryStream dataStream = new MemoryStream();
                 StreamWriter streamWriter = new StreamWriter(dataStream);
                 streamWriter.Write(dataObject);
+                streamWriter.Flush();
                 if (dataStream.CanSeek)
                     dataStream.Position = 0;
 

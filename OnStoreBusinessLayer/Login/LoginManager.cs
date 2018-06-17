@@ -49,6 +49,7 @@ namespace OnStoreBusinessLayer.Login
                 response.Status = LoginStatus.InvalidToken;
                 return response;
             }
+            response.Status = LoginStatus.Success;
             response.Token = token;
             response.User = user;
 

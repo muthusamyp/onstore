@@ -14,5 +14,8 @@ namespace OnStoreModels.Common
         InvalidItem = 4,
         InvalidPrice = 5,
         InvalidTransaction = 6,
-        Failure = 7    }
+        Failure = 7,
+        InvalidUserID = 8,
+        InvalidAmount = 9
+    }
 }

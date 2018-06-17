@@ -75,6 +75,7 @@ namespace OnStoreBusinessLayer.Registration
                 response.Status = RegistrationStatus.InvalidToken;
                 return response;
             }
+            response.Status = RegistrationStatus.Success;
             response.Token = token;
             response.User = user;
 

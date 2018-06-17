@@ -37,7 +37,6 @@ namespace OnStoreModels
         public virtual DbSet<ItemVendorPrice> ItemVendorPrices { get; set; }
         public virtual DbSet<ItemVideoMap> ItemVideoMaps { get; set; }
         public virtual DbSet<PriceDiscount> PriceDiscounts { get; set; }
-        public virtual DbSet<PurchaseItemDeliveryAddressMap> PurchaseItemDeliveryAddressMaps { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<UserAddress> UserAddresses { get; set; }
@@ -48,5 +47,6 @@ namespace OnStoreModels
         public virtual DbSet<MetricUnit> MetricUnits { get; set; }
         public virtual DbSet<PurchaseRawReceipt> PurchaseRawReceipts { get; set; }
         public virtual DbSet<PurchaseReceipt> PurchaseReceipt { get; set; }
+        public virtual DbSet<OrderDeliveryAddressMap> OrderDeliveryAddressMaps { get; set; }
     }
 }
